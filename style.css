@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+:root {
+    --bg-gradient: linear-gradient(160deg, #2c3e50 0%, #3498db 100%);
+    --circle-gradient: linear-gradient(145deg, #89f7fe 0%, #66a6ff 100%);
+    --outline-color: #fadb7d; /* Warm Amber */
+    --text-color: #ecf0f1;
+    --input-bg: rgba(255, 255, 255, 0.1);
+    --stat-label-color: #bdc3c7;
+    --font-family: 'Poppins', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background: var(--bg-gradient);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.mantra-header {
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+.mantra-input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: none;
+    background: var(--input-bg);
+    border-radius: 50px;
+    color: var(--text-color);
+    font-size: 1rem;
+    font-weight: 300;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.mantra-input::placeholder {
+    color: var(--stat-label-color);
+}
+
+.mantra-input:focus {
+    outline: none;
+    box-shadow: 0 0 15px rgba(137, 247, 254, 0.5);
+}
+
+.counter-container {
+    position: relative;
+    margin-bottom: 3rem;
+}
+
+.counter-circle {
+    width: 220px;
+    height: 220px;
+    background: var(--circle-gradient);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.counter-circle:active {
+    transform: scale(0.95);
+}
+
+.counter-circle.disabled {
+    cursor: not-allowed;
+    filter: brightness(0.9);
+}
+
+.counter-text {
+    font-size: 4rem;
+    font-weight: 600;
+    color: #2c3e50;
+    z-index: 2;
+}
+
+.counter-outline {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    width: 240px;
+    height: 240px;
+    border: 4px solid transparent;
+    border-radius: 50%;
+    z-index: 1;
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.counter-circle.animating .counter-outline {
+    transform: rotate(360deg);
+    border-top-color: var(--outline-color);
+    border-right-color: var(--outline-color);
+    border-bottom-color: var(--outline-color);
+    border-left-color: var(--outline-color);
+}
+
+.stats-footer {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--stat-label-color);
+    margin-bottom: 0.3rem;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
