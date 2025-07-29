@@ -2,50 +2,68 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Mala 🧘‍♂️</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sadhak 🧘 | Your Spiritual Planner</title>
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#ffffff">
-    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#FF7A00"/>
 </head>
 <body>
-    <div class="app-container">
-        <div class="main-circle" id="mainCircle">
-            <svg class="progress-ring" width="260" height="260">
-                <circle class="progress-ring__bg" stroke-width="15" fill="transparent" r="120" cx="130" cy="130"/>
-                <defs>
-                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#89f7fe;stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:#ff7e5f;stop-opacity:1" />
-                    </linearGradient>
-                </defs>
-                <circle id="progressRing" class="progress-ring__circle" stroke="url(#gradient)" stroke-width="15" stroke-linecap="round" fill="transparent" r="120" cx="130" cy="130"/>
-            </svg>
-            <div class="counter-content">
-                <div class="count-display" id="countDisplay">0</div>
-                <div class="mode-display" id="modeDisplay"></div>
+    <div class="container">
+        <header>
+            <h1>Sadhak 🧘</h1>
+            <p>Plan your Purascharan with ease and devotion.</p>
+        </header>
+
+        <main class="card">
+            <div class="input-group">
+                <label for="purascharanName">🙏 Purascharan Name:</label>
+                <input type="text" id="purascharanName" placeholder="e.g., Gayatri Purascharan">
             </div>
+
+            <div class="input-group">
+                <label for="japaCount">📿 Total Japa Count:</label>
+                <input type="number" id="japaCount" value="100000">
+            </div>
+
+            <div class="input-group">
+                <label for="sadhanaDays">🗓️ How many days will you perform this sadhana?</label>
+                <input type="number" id="sadhanaDays" min="1" placeholder="e.g., 40">
+            </div>
+
+            <div class="input-group">
+                <label for="startDate">Select your start date:</label>
+                <input type="date" id="startDate">
+            </div>
+             <p class="end-date-display" id="endDateResult"></p>
+
+            <div class="input-group">
+                <label>🔥 Will you be performing the associated angas?</label>
+                <div class="button-group">
+                    <button id="angasYes" class="option-button">Yes</button>
+                    <button id="angasNo" class="option-button">No</button>
+                </div>
+            </div>
+        </main>
+
+        <div id="resultsCard" class="card results-hidden">
+            <h2>✨ Your Sadhana Plan ✨</h2>
+            <div id="resultsContent">
+                <!-- Results will be injected here by JavaScript -->
+            </div>
+            <button id="saveAsImage" class="action-button">📸 Save as Image</button>
         </div>
 
-        <div class="controls">
-            <button class="control-btn" id="malaModeBtn">Mala (108)</button>
-            <button class="control-btn" id="targetBtn">Target</button>
-            <button class="control-btn" id="resetBtn">Reset</button>
-        </div>
-
-        <div class="settings">
-             <button class="setting-btn" id="feedbackBtn">🔊</button>
-             <button class="setting-btn" id="themeBtn">☀️</button>
-        </div>
     </div>
-    <footer class="footer">
-        © Copyright DroidMG 2025
+
+    <footer>
+        <p>© Copyright DroidMG 2025</p>
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
