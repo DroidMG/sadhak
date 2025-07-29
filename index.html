@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mala 🧘‍♂️ - Digital Mantra Counter</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2c3e50">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+</head>
+<body>
+    <div class="app-container">
+        <header class="mantra-header">
+            <input type="text" id="mantraInput" class="mantra-input" placeholder="Enter your mantra... 🕉️🙏">
+        </header>
+
+        <main class="counter-container">
+            <div id="counterCircle" class="counter-circle">
+                <div class="counter-outline"></div>
+                <span id="sessionCount" class="counter-text">0</span>
+            </div>
+        </main>
+
+        <footer class="stats-footer">
+            <div class="stat-item">
+                <span class="stat-label">Total Count</span>
+                <span id="totalCount" class="stat-value">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Streak 🔥</span>
+                <span id="streak" class="stat-value">0 days</span>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
