@@ -104,14 +104,25 @@ input:focus {
     color: #fff;
 }
 
+/* Styling for the date display */
 .end-date-display {
     text-align: center;
     font-weight: bold;
-    color: var(--primary-orange);
+    color: #555; /* A slightly softer color */
+    font-size: 1rem;
+    min-height: 20px;
+}
+
+#liveEndDateDisplay {
     margin-top: -10px;
     margin-bottom: 20px;
-    font-size: 1.1rem;
-    min-height: 20px;
+}
+
+#imageDateDisplay {
+    margin-top: -10px;
+    margin-bottom: 25px; /* More space below the date in the image */
+    color: var(--primary-orange); /* Make it orange in the image */
+    font-weight: bold;
 }
 
 .results-hidden {
