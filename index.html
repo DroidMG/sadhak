@@ -39,7 +39,9 @@
                 <label for="startDate">Select your start date:</label>
                 <input type="date" id="startDate">
             </div>
-             <p class="end-date-display" id="endDateResult"></p>
+             
+             <!-- This shows the end date to the user in real-time -->
+             <div class="end-date-display" id="liveEndDateDisplay"></div>
 
             <div class="input-group">
                 <label>🔥 Will you be performing the associated angas?</label>
@@ -51,16 +53,17 @@
         </main>
 
         <div id="resultsCard" class="card results-hidden">
-            <!-- This section is dynamically populated by script.js -->
+            <!-- This is the area that will be saved as an image -->
             <div id="captureArea">
                 <h2 id="resultsTitle">✨ Your Sadhana Plan ✨</h2>
+                <!-- The start/end date is now here so it gets captured! -->
+                <p class="end-date-display" id="imageDateDisplay"></p> 
                 <div id="resultsContent">
                     <!-- Results will be injected here -->
                 </div>
             </div>
             <button id="saveAsImage" class="action-button">📸 Save as Image</button>
         </div>
-
     </div>
 
     <footer>
@@ -69,7 +72,7 @@
 
     <!-- External library for creating the image -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <!-- Our fixed and improved script -->
+    <!-- Our final script -->
     <script src="script.js"></script>
 </body>
 </html>
