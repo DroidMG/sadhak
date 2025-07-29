@@ -9,7 +9,7 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    background-color: var(--bg-color);
+    background-color: var(--light-orange);
     color: var(--dark-text);
     margin: 0;
     padding: 20px;
@@ -32,7 +32,7 @@ header {
 }
 
 header h1 {
-    font-size: 2.5rem;
+    font-size: 3rem;
     color: var(--primary-orange);
     margin: 0;
 }
@@ -43,11 +43,12 @@ header p {
 }
 
 .card {
-    background-color: var(--light-orange);
+    background-color: var(--bg-color);
     padding: 25px;
     border-radius: var(--border-radius);
     margin-bottom: 20px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid #f0f0f0;
 }
 
 .input-group {
@@ -110,32 +111,42 @@ input:focus {
     margin-top: -10px;
     margin-bottom: 20px;
     font-size: 1.1rem;
+    min-height: 20px;
 }
 
 .results-hidden {
-    display: none;
+    display: none !important;
 }
 
 #resultsCard {
-    background-color: #fff;
-    border: 2px solid var(--primary-orange);
+    display: block;
+    background-color: var(--light-orange);
+    border: 1px solid #ffe8d1;
+}
+
+#captureArea {
+    background-color: #FFF;
+    padding: 20px;
+    border-radius: var(--border-radius);
 }
 
 #resultsCard h2 {
     text-align: center;
     color: var(--primary-orange);
     font-size: 1.8rem;
+    margin-top: 0;
 }
 
 #resultsContent p {
     background-color: var(--light-orange);
-    padding: 12px;
+    padding: 15px;
     border-radius: 10px;
     line-height: 1.6;
     font-size: 1.1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin: 10px 0;
 }
 
 #resultsContent p strong {
@@ -148,15 +159,16 @@ input:focus {
     text-align: center;
     display: block !important;
     background-color: #fff !important;
+    padding: 5px !important;
 }
 
 .grand-total {
     background-color: var(--primary-orange) !important;
-    color: #fff;
+    color: #fff !important;
     font-weight: bold;
 }
 .grand-total strong {
-    color: #fff;
+    color: #fff !important;
 }
 
 
@@ -182,7 +194,7 @@ input:focus {
 footer {
     text-align: center;
     margin-top: auto;
-    padding-top: 20px;
+    padding: 40px 20px 20px 20px;
     color: #999;
     font-size: 0.9rem;
 }
