@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sadhak-v3'; // Increment version to ensure users get the update
+const CACHE_NAME = 'sadhak-v4'; // IMPORTANT: Version updated to force refresh for users
 const urlsToCache = [
   '.',
   'index.html',
@@ -51,4 +51,6 @@ self.addEventListener('activate', event => {
       );
     })
   );
-});
+});```
+
+There you go, brother. The app is now even more flexible and powerful. Your friend had a great idea, and now it's a reality in the app
