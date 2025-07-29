@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="manifest" href="manifest.json">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sadhak 🧘 | Your Spiritual Planner</title>
@@ -11,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <meta name="theme-color" content="#FF7A00"/>
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
 </head>
 <body>
     <div class="container">
@@ -51,9 +51,12 @@
         </main>
 
         <div id="resultsCard" class="card results-hidden">
-            <h2>✨ Your Sadhana Plan ✨</h2>
-            <div id="resultsContent">
-                <!-- Results will be injected here by JavaScript -->
+            <!-- This section is dynamically populated by script.js -->
+            <div id="captureArea">
+                <h2 id="resultsTitle">✨ Your Sadhana Plan ✨</h2>
+                <div id="resultsContent">
+                    <!-- Results will be injected here -->
+                </div>
             </div>
             <button id="saveAsImage" class="action-button">📸 Save as Image</button>
         </div>
@@ -64,7 +67,9 @@
         <p>© Copyright DroidMG 2025</p>
     </footer>
 
+    <!-- External library for creating the image -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- Our fixed and improved script -->
     <script src="script.js"></script>
 </body>
 </html>
