@@ -5,7 +5,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const startDateEl = document.getElementById('startDate');
     const purascharanNameEl = document.getElementById('purascharanName');
     
-    const endDateResultEl = document.getElementById('endDateResult');
+    // Get both date display elements
+    const liveEndDateDisplayEl = document.getElementById('liveEndDateDisplay');
+    const imageDateDisplayEl = document.getElementById('imageDateDisplay');
+    
     const angasYesBtn = document.getElementById('angasYes');
     const angasNoBtn = document.getElementById('angasNo');
     
@@ -18,41 +21,44 @@ document.addEventListener('DOMContentLoaded', () => {
     let angasOption = null;
 
     // --- 2. SET DEFAULTS ---
-    // Set today's date as the default start date
     const today = new Date();
     const yyyy = today.getFullYear();
-    const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-11
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
     const dd = String(today.getDate()).padStart(2, '0');
     startDateEl.value = `${yyyy}-${mm}-${dd}`;
 
     // --- 3. CORE LOGIC FUNCTION ---
     const updatePlan = () => {
-        // First, get all current values
         const japaCount = parseInt(japaCountEl.value, 10);
         const days = parseInt(sadhanaDaysEl.value, 10);
-        const startDate = startDateEl.value;
-
-        // --- Date Calculation ---
-        if (startDate && days > 0) {
-            const startDateObj = new Date(startDate);
-            // Add timezone offset to prevent date from shifting
+        const startDateValue = startDateEl.value;
+        
+        let dateInfoText = '';
+        if (startDateValue && days > 0) {
+            const startDateObj = new Date(startDateValue);
             startDateObj.setMinutes(startDateObj.getMinutes() + startDateObj.getTimezoneOffset());
+            
             const endDate = new Date(startDateObj);
             endDate.setDate(startDateObj.getDate() + days - 1);
-            endDateResultEl.textContent = `🔚 Your sadhana will end on: ${endDate.toLocaleDateString()}`;
-        } else {
-            endDateResultEl.textContent = '';
+            
+            // Format dates nicely
+            const startDateFormatted = startDateObj.toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' });
+            const endDateFormatted = endDate.toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' });
+            
+            dateInfoText = `🗓️ From ${startDateFormatted} to ${endDateFormatted}`;
         }
+        
+        // Update both date displays
+        liveEndDateDisplayEl.textContent = dateInfoText;
+        imageDateDisplayEl.textContent = dateInfoText;
 
-        // --- Main Calculation (only if all inputs are ready) ---
         if (!japaCount || !days || days <= 0 || angasOption === null) {
             resultsCard.classList.add('results-hidden');
-            return; // Exit if we don't have all the info
+            return;
         }
 
-        // If we have all info, show the card and calculate
         resultsCard.classList.remove('results-hidden');
-        resultsContentEl.innerHTML = ''; // Clear previous results
+        resultsContentEl.innerHTML = '';
         
         const sadhanaName = purascharanNameEl.value || "Sadhana";
         resultsTitleEl.textContent = `✨ ${sadhanaName} Plan ✨`;
@@ -93,32 +99,29 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // --- 4. EVENT LISTENERS ---
-    // Listen for clicks on the Yes/No buttons
     angasYesBtn.addEventListener('click', () => {
         angasOption = 'yes';
         angasYesBtn.classList.add('selected');
         angasNoBtn.classList.remove('selected');
-        updatePlan(); // Run the main update function
+        updatePlan();
     });
 
     angasNoBtn.addEventListener('click', () => {
         angasOption = 'no';
         angasNoBtn.classList.add('selected');
         angasYesBtn.classList.remove('selected');
-        updatePlan(); // Run the main update function
+        updatePlan();
     });
 
-    // Listen for any input changes in the fields
     [japaCountEl, sadhanaDaysEl, startDateEl, purascharanNameEl].forEach(el => {
         el.addEventListener('input', updatePlan);
     });
 
-    // Listener for the save image button
     saveAsImageBtn.addEventListener('click', () => {
         const sadhanaName = (purascharanNameEl.value || "Sadhana-Plan").replace(/ /g, "_");
         html2canvas(captureAreaEl, {
             backgroundColor: "#ffffff",
-            scale: 2 // Higher resolution for better quality
+            scale: 2
         }).then(canvas => {
             const link = document.createElement('a');
             link.download = `${sadhanaName}.png`;
@@ -137,4 +140,8 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    // --- 6. INITIAL CALL ---
+    // Run once on load to set the default date display
+    updatePlan();
 });
