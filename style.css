@@ -104,11 +104,10 @@ input:focus {
     color: #fff;
 }
 
-/* Styling for the date display */
 .end-date-display {
     text-align: center;
     font-weight: bold;
-    color: #555; /* A slightly softer color */
+    color: #555;
     font-size: 1rem;
     min-height: 20px;
 }
@@ -120,9 +119,13 @@ input:focus {
 
 #imageDateDisplay {
     margin-top: -10px;
-    margin-bottom: 25px; /* More space below the date in the image */
-    color: var(--primary-orange); /* Make it orange in the image */
+    margin-bottom: 25px;
+    color: var(--primary-orange);
     font-weight: bold;
+}
+
+.hidden {
+    display: none !important;
 }
 
 .results-hidden {
@@ -147,6 +150,16 @@ input:focus {
     font-size: 1.8rem;
     margin-top: 0;
 }
+
+#resultsContent h3 {
+    font-size: 1.2rem;
+    color: var(--primary-orange);
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid var(--light-orange);
+}
+
 
 #resultsContent p {
     background-color: var(--light-orange);
@@ -181,7 +194,6 @@ input:focus {
 .grand-total strong {
     color: #fff !important;
 }
-
 
 .action-button {
     display: block;
