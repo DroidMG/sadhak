@@ -1,12 +1,14 @@
-const CACHE_NAME = 'sadhak-v1';
+const CACHE_NAME = 'sadhak-v2'; // Increment version to force update
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/style.css',
-  '/script.js',
-  '/manifest.json',
-  '/icons/icon-192x192.png',
-  '/icons/icon-512x512.png'
+  '.',
+  'index.html',
+  'style.css',
+  'script.js',
+  'manifest.json',
+  'icons/icon-192x192.png',
+  'icons/icon-512x512.png',
+  'https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap',
+  'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js'
 ];
 
 // Install a service worker
@@ -43,7 +45,7 @@ self.addEventListener('activate', event => {
       return Promise.all(
         cacheNames.map(cacheName => {
           if (cacheWhitelist.indexOf(cacheName) === -1) {
-            return caches.delete(cacheName);
+            return caches.delete(cacheName); // Delete old caches
           }
         })
       );
