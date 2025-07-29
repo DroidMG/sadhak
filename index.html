@@ -50,13 +50,21 @@
                     <button id="angasNo" class="option-button">No</button>
                 </div>
             </div>
+
+            <!-- This new group is hidden by default and appears when 'Yes' is clicked -->
+            <div id="angasFrequencyGroup" class="input-group hidden">
+                <label>How will you perform them?</label>
+                <div class="button-group">
+                    <button id="dailyBtn" class="option-button">Daily</button>
+                    <button id="atEndBtn" class="option-button">At the End</button>
+                </div>
+            </div>
         </main>
 
         <div id="resultsCard" class="card results-hidden">
             <!-- This is the area that will be saved as an image -->
             <div id="captureArea">
                 <h2 id="resultsTitle">✨ Your Sadhana Plan ✨</h2>
-                <!-- The start/end date is now here so it gets captured! -->
                 <p class="end-date-display" id="imageDateDisplay"></p> 
                 <div id="resultsContent">
                     <!-- Results will be injected here -->
