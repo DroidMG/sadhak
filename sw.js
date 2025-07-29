@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sadhak-v2'; // Increment version to force update
+const CACHE_NAME = 'sadhak-v3'; // Increment version to ensure users get the update
 const urlsToCache = [
   '.',
   'index.html',
