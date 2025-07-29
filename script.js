@@ -1,46 +1,63 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- 1. GET ALL THE ELEMENTS ---
     const japaCountEl = document.getElementById('japaCount');
     const sadhanaDaysEl = document.getElementById('sadhanaDays');
     const startDateEl = document.getElementById('startDate');
+    const purascharanNameEl = document.getElementById('purascharanName');
+    
     const endDateResultEl = document.getElementById('endDateResult');
     const angasYesBtn = document.getElementById('angasYes');
     const angasNoBtn = document.getElementById('angasNo');
+    
     const resultsCard = document.getElementById('resultsCard');
-    const resultsContent = document.getElementById('resultsContent');
+    const resultsTitleEl = document.getElementById('resultsTitle');
+    const resultsContentEl = document.getElementById('resultsContent');
+    const captureAreaEl = document.getElementById('captureArea');
     const saveAsImageBtn = document.getElementById('saveAsImage');
-
+    
     let angasOption = null;
 
-    // Set today's date as default for start date
-    startDateEl.valueAsDate = new Date();
+    // --- 2. SET DEFAULTS ---
+    // Set today's date as the default start date
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-11
+    const dd = String(today.getDate()).padStart(2, '0');
+    startDateEl.value = `${yyyy}-${mm}-${dd}`;
 
-    const calculateEndDate = () => {
-        if (startDateEl.value && sadhanaDaysEl.value) {
-            const startDate = new Date(startDateEl.value);
-            const days = parseInt(sadhanaDaysEl.value, 10);
-            if (days > 0) {
-                const endDate = new Date(startDate.getTime());
-                endDate.setDate(startDate.getDate() + days -1);
-                endDateResultEl.textContent = `🔚 Your sadhana will end on: ${endDate.toLocaleDateString()}`;
-            } else {
-                 endDateResultEl.textContent = '';
-            }
-        }
-    };
-    
-    const formatNumber = (num) => Math.ceil(num).toLocaleString('en-IN');
-
-    const generatePlan = () => {
+    // --- 3. CORE LOGIC FUNCTION ---
+    const updatePlan = () => {
+        // First, get all current values
         const japaCount = parseInt(japaCountEl.value, 10);
         const days = parseInt(sadhanaDaysEl.value, 10);
+        const startDate = startDateEl.value;
 
-        if (!japaCount || !days || days <= 0 || angasOption === null) {
-            resultsCard.classList.add('results-hidden');
-            return;
+        // --- Date Calculation ---
+        if (startDate && days > 0) {
+            const startDateObj = new Date(startDate);
+            // Add timezone offset to prevent date from shifting
+            startDateObj.setMinutes(startDateObj.getMinutes() + startDateObj.getTimezoneOffset());
+            const endDate = new Date(startDateObj);
+            endDate.setDate(startDateObj.getDate() + days - 1);
+            endDateResultEl.textContent = `🔚 Your sadhana will end on: ${endDate.toLocaleDateString()}`;
+        } else {
+            endDateResultEl.textContent = '';
         }
 
+        // --- Main Calculation (only if all inputs are ready) ---
+        if (!japaCount || !days || days <= 0 || angasOption === null) {
+            resultsCard.classList.add('results-hidden');
+            return; // Exit if we don't have all the info
+        }
+
+        // If we have all info, show the card and calculate
         resultsCard.classList.remove('results-hidden');
-        resultsContent.innerHTML = ''; // Clear previous results
+        resultsContentEl.innerHTML = ''; // Clear previous results
+        
+        const sadhanaName = purascharanNameEl.value || "Sadhana";
+        resultsTitleEl.textContent = `✨ ${sadhanaName} Plan ✨`;
+
+        const formatNumber = (num) => Math.ceil(num).toLocaleString('en-IN');
 
         if (angasOption === 'yes') {
             const yagyaCount = japaCount / 10;
@@ -48,12 +65,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const marjanCount = tarpanCount / 10;
             const bhojanCount = marjanCount / 10;
 
-            resultsContent.innerHTML = `
+            resultsContentEl.innerHTML = `
                 <p>🕉️ Daily Japa: <strong>${formatNumber(japaCount / days)}</strong></p>
                 <p>🔥 Daily Yagya: <strong>${formatNumber(yagyaCount / days)}</strong></p>
                 <p>💧 Daily Tarpan: <strong>${formatNumber(tarpanCount / days)}</strong></p>
                 <p>💦 Daily Marjan: <strong>${formatNumber(marjanCount / days)}</strong></p>
-                <p>🍽️ Brahman Bhojan (Total): <strong>${formatNumber(bhojanCount)}</strong></p>
+                <p>🍽️ Brahman Bhojan (Total at end): <strong>${formatNumber(bhojanCount)}</strong></p>
             `;
         } else { // Compensatory Japa
             const yagyaJapa = (japaCount / 10) * 2;
@@ -62,8 +79,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const bhojanJapa = (japaCount / 10000) * 2;
             const totalJapa = japaCount + yagyaJapa + tarpanJapa + marjanJapa + bhojanJapa;
 
-            resultsContent.innerHTML = `
-                <p class="compensatory-info">You've chosen to perform compensatory Japa for the angas. Here is your consolidated plan:</p>
+            resultsContentEl.innerHTML = `
+                <p class="compensatory-info">You've chosen to perform compensatory Japa. Here is your consolidated plan:</p>
                 <p>Original Japa: <strong>${formatNumber(japaCount)}</strong></p>
                 <p>➕ Japa for Yagya: <strong>${formatNumber(yagyaJapa)}</strong></p>
                 <p>➕ Japa for Tarpan: <strong>${formatNumber(tarpanJapa)}</strong></p>
@@ -75,76 +92,49 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    sadhanaDaysEl.addEventListener('input', calculateEndDate);
-    startDateEl.addEventListener('input', calculateEndDate);
-
+    // --- 4. EVENT LISTENERS ---
+    // Listen for clicks on the Yes/No buttons
     angasYesBtn.addEventListener('click', () => {
         angasOption = 'yes';
         angasYesBtn.classList.add('selected');
         angasNoBtn.classList.remove('selected');
-        generatePlan();
+        updatePlan(); // Run the main update function
     });
 
     angasNoBtn.addEventListener('click', () => {
         angasOption = 'no';
         angasNoBtn.classList.add('selected');
         angasYesBtn.classList.remove('selected');
-        generatePlan();
+        updatePlan(); // Run the main update function
     });
-    
-    // Listen for any changes to regenerate plan
-    [japaCountEl, sadhanaDaysEl].forEach(el => el.addEventListener('input', generatePlan));
-    
+
+    // Listen for any input changes in the fields
+    [japaCountEl, sadhanaDaysEl, startDateEl, purascharanNameEl].forEach(el => {
+        el.addEventListener('input', updatePlan);
+    });
+
+    // Listener for the save image button
     saveAsImageBtn.addEventListener('click', () => {
-        html2canvas(resultsCard, {
-            backgroundColor: "#ffffff", // Set a solid background
-            scale: 2 // Increase resolution
+        const sadhanaName = (purascharanNameEl.value || "Sadhana-Plan").replace(/ /g, "_");
+        html2canvas(captureAreaEl, {
+            backgroundColor: "#ffffff",
+            scale: 2 // Higher resolution for better quality
         }).then(canvas => {
             const link = document.createElement('a');
-            link.download = 'sadhana-plan.png';
+            link.download = `${sadhanaName}.png`;
             link.href = canvas.toDataURL('image/png');
             link.click();
         });
     });
     
-    // Register Service Worker for PWA
+    // --- 5. PWA SERVICE WORKER ---
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/sw.js').then(registration => {
-                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            navigator.serviceWorker.register('sw.js').then(registration => {
+                console.log('✅ ServiceWorker registered');
             }, err => {
-                console.log('ServiceWorker registration failed: ', err);
+                console.log('❌ ServiceWorker registration failed: ', err);
             });
         });
     }
-
-});```
-
----
-
-### **4. `manifest.json` (PWA Manifest)**
-
-This file tells the browser that your site is a PWA and provides its details.
-
-```json
-{
-  "name": "Sadhak",
-  "short_name": "Sadhak",
-  "start_url": "/index.html",
-  "display": "standalone",
-  "background_color": "#FFFFFF",
-  "theme_color": "#FF7A00",
-  "description": "A simple PWA to plan your Purascharan Sadhana.",
-  "icons": [
-    {
-      "src": "icons/icon-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "icons/icon-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ]
-}
+});
