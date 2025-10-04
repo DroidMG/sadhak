@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "com.droidmg.sadhak",
+        "sha256_cert_fingerprints": ["37:C5:52:E0:7E:80:99:80:81:3F:0A:54:AE:C8:68:AE:E3:88:9D:C5:8F:5C:A5:04:78:5D:F4:50:11:3E:08:C0"]
+      }
+    }]
