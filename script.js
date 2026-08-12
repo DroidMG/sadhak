@@ -33,6 +33,16 @@ document.addEventListener('DOMContentLoaded', () => {
     startDateEl.value = `${yyyy}-${mm}-${dd}`;
 
     // --- 4. CORE LOGIC FUNCTION ---
+    const debounce = (func, delay) => {
+        let timeoutId;
+        return (...args) => {
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => {
+                func(...args);
+            }, delay);
+        };
+    };
+
     const updatePlan = () => {
         const japaCount = parseInt(japaCountEl.value, 10);
         const days = parseInt(sadhanaDaysEl.value, 10);
@@ -145,8 +155,10 @@ document.addEventListener('DOMContentLoaded', () => {
         updatePlan();
     });
 
+    const debouncedUpdatePlan = debounce(updatePlan, 250);
+
     [japaCountEl, sadhanaDaysEl, startDateEl, purascharanNameEl].forEach(el => {
-        el.addEventListener('input', updatePlan);
+        el.addEventListener('input', debouncedUpdatePlan);
     });
 
     saveAsImageBtn.addEventListener('click', () => {
